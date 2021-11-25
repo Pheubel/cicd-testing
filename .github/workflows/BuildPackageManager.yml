@@ -33,5 +33,7 @@ jobs:
         with:
           version: ${{ matrix.sm_version }}
           
+      # $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
       - name: Compile Plugins
-        run: $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
+        run: |
+          spcomp $GITHUB_WORKSPACE/scripting/vshPackageManager.sp -i='scripting/include' -O2 -v2 -o=pack.smx
