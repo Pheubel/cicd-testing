@@ -37,6 +37,7 @@ jobs:
         uses: rumblefrog/setup-sp@master
         with:
           version: ${{ matrix.sm_version }}
+          define-name: VSH_PM_VERSION
           version-file: ./scripting/include/vshPackageManager.inc
       
       - name: Compile Plugins
@@ -47,7 +48,7 @@ jobs:
       - name: Pack Plugins
         run: |
           zip vshPackageManager.zip $GITHUB_WORKSPACE/build/vshPackageManager.smx
-          tar cvf vshPackageManager.tar -C $GITHUB_WORKSPACE/build/
+          tar cvf vshPackageManager.tar -C $GITHUB_WORKSPACE/build/vshPackageManager.smx
           
       - name: 'Upload Compilation Artifact'
         uses: actions/upload-artifact@v2
