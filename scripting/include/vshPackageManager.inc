@@ -8,4 +8,4 @@
 #define VSH_PM_VERSION_MINOR 0
 #define VSH_PM_VERSION_PATCH 0
 
-#define VSH_PM_VERSION "0,0,0"
+#define VSH_PM_VERSION "0.1.2"
