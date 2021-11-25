@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         # Set up Sourcemod versions to compile against
-        sm_version: [ '1.11']
+        sm_version: ['1.10', '1.11']
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -40,9 +40,10 @@ jobs:
           define-name: VSH_PM_VERSION
           version-file: ./scripting/include/vshPackageManager.inc
       
+      # bash $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
       - name: Compile Plugins
         run: |
-          bash $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
+          spcomp 'scripting/vshPackageManager.sp' -i='scripting/include' -i='scripting/' -O2 -v2 -o='build/vshPackageManager.smx'
           echo Plugin version ${{ steps.setup_sp.outputs.plugin-version }}
       
       - name: Pack Plugins
