@@ -1,4 +1,4 @@
-#include "include/vshPackageManager.inc"
+#include "vshPackageManager.inc"
 
 #pragma semicolon            1
 #pragma newdecls             required
