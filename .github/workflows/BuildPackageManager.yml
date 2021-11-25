@@ -9,12 +9,14 @@ on:
       - master
     paths:
       - '*'
+      - '!build/*'
       - '!packages/*'
   pull_request:
     branches:
       - master
     paths:
       - '*'
+      - '!build/*'
       - '!packages/*'
       
 jobs:
@@ -31,12 +33,24 @@ jobs:
       
       # Sets up the SourcePawn compiler
       - name: Setup SourcePawn Compiler ${{ matrix.sm_version }}
+        id: setup_sp
         uses: rumblefrog/setup-sp@master
         with:
           version: ${{ matrix.sm_version }}
-          
-      # spcomp $GITHUB_WORKSPACE/scripting/vshPackageManager.sp -i='scripting/include' -O2 -v2 -o=$GITHUB_WORKSPACE/build/vshPackageManager.smx
-      # $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
+          version-file: ./scripting/include/vshPackageManager.inc
+      
       - name: Compile Plugins
-        run: bash $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
+        run: |
+          bash $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
+          echo Plugin version ${{ steps.setup_sp.outputs.plugin-version }}
+      
+      - name: Pack Plugins
+        run: |
+          zip vshPackageManager.zip $GITHUB_WORKSPACE/build/vshPackageManager.smx
+          tar cvf vshPackageManager.tar -C $GITHUB_WORKSPACE/build/
           
+      - name: 'Upload Compilation Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: VSH2 Package Manager (SM ${{ matrix.sm_version }})
+          path: vsh2_plugins.tar
