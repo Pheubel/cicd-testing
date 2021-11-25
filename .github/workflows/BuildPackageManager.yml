@@ -35,19 +35,15 @@ jobs:
       
       # Sets up the SourcePawn compiler
       - name: Setup SourcePawn Compiler ${{ matrix.sm_version }}
-        id: setup_sp
-        uses: rumblefrog/setup-sp@master
-        with:
-          version: ${{ matrix.sm_version }}
-          define-name: VSH_PM_VERSION
-          version-file: ./scripting/include/vshPackageManager.inc
+        run: |
+          wget --input-file=http://sourcemod.net/smdrop/${{ matrix.sm_version }}/sourcemod-latest-linux
+          tar -xzf $(cat sourcemod-latest-linux)          
       
       # bash $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
       - name: Compile Plugins
         run: |
-          spcomp 'scripting/vshPackageManager.sp' -i='scripting/include' -i='$includePath' -i='scripting/' -O2 -v2 -o='build/vshPackageManager.smx'
-          echo Plugin version ${{ steps.setup_sp.outputs.plugin-version }}
-      
+          addons/sourcemod/scripting/spcomp 'scripting/vshPackageManager.sp' -i='scripting/include' -i='addons/sourcemod/scripting/include' -i='scripting/' -O2 -v2 -o='build/vshPackageManager.smx'
+
       - name: Pack Plugins
         run: zip vshPackageManager.zip $GITHUB_WORKSPACE/build/vshPackageManager.smx
           
