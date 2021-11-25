@@ -20,7 +20,6 @@ $executable = $spCompPath
 $outPath = Join-Path -Path $PSScriptRoot -ChildPath '/build/'
 $includePaths = $spArgs.Where{$_ -like '-i=*'}
 $scripts = $spArgs.Where{$_ -notlike '-i=*'}
-#$localIncludePath = '-i=''include'''
 $optimization = '-O2'
 $verbosity = '-v2'
 

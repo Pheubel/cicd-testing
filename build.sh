@@ -9,7 +9,6 @@ cd "$script_dir"
 sp_executable="$1"
 out_path="$script_dir/build"
 include_paths=""
-#local_include_path="-i='include'"
 sp_optimize="-O2"
 sp_verbose="-v2"
 
@@ -30,5 +29,3 @@ do
         "$sp_executable" $script "$outArg" $include_paths $sp_optimize $sp_verbose
     esac
 done
-
-#"$sp_executable" $plugin_script $out_path $include_path $local_include_path $sp_optimize $sp_verbose
