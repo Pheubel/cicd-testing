@@ -24,8 +24,10 @@ do
     case $script in *sp)
         script_name="${script%.*}"
         script_name="${script_name##*/}"
-        outArg="-o=$out_path/$script_name.smx"
+        outArg="-o=$script_name.smx"
 
+        echo $outArg
+        
         "$sp_executable" $script "$outArg" $include_paths $sp_optimize $sp_verbose
     esac
 done
