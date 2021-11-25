@@ -45,7 +45,7 @@ jobs:
       # bash $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
       - name: Compile Plugins
         run: |
-          spcomp 'scripting/vshPackageManager.sp' -i='scripting/include' -i=$includePath -i='scripting/' -O2 -v2 -o='build/vshPackageManager.smx'
+          spcomp 'scripting/vshPackageManager.sp' -i='scripting/include' -i='$includePath' -i='scripting/' -O2 -v2 -o='build/vshPackageManager.smx'
           echo Plugin version ${{ steps.setup_sp.outputs.plugin-version }}
       
       - name: Pack Plugins
