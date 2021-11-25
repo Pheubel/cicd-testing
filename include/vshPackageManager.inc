@@ -1,0 +1,11 @@
+#if defined VSH_PACKAGE_MANAGER_INC
+    #endinput
+#endif
+
+#define VSH_PACKAGE_MANAGER_INC
+
+#define VSH_PM_VERSION_MAJOR 0
+#define VSH_PM_VERSION_MINOR 0
+#define VSH_PM_VERSION_PATCH 0
+
+#define VSH_PM_VERSION "0,0,0"
