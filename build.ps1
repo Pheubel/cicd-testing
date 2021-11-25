@@ -20,7 +20,7 @@ $executable = $spCompPath
 $outPath = Join-Path -Path $PSScriptRoot -ChildPath '/build/'
 $includePaths = $spArgs.Where{$_ -like '-i=*'}
 $scripts = $spArgs.Where{$_ -notlike '-i=*'}
-$localIncludePath = '-i=''include'''
+#$localIncludePath = '-i=''include'''
 $optimization = '-O2'
 $verbosity = '-v2'
 
@@ -30,7 +30,7 @@ foreach ($script in $scripts)
         $outArg = Join-Path -Path $outPath -ChildPath $outArg
         $outArg = '-o=' + $outArg
 
-        & $executable $script $outArg $localIncludePath $includePaths $optimization $verbosity
+        & $executable $script $outArg $includePaths $optimization $verbosity
 }
 
 Pop-Location

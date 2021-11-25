@@ -9,7 +9,7 @@ cd "$script_dir"
 sp_executable="$1"
 out_path="$script_dir/build"
 include_paths=""
-local_include_path="-i='include'"
+#local_include_path="-i='include'"
 sp_optimize="-O2"
 sp_verbose="-v2"
 
@@ -27,7 +27,7 @@ do
         script_name="${script_name##*/}"
         outArg="-o=$out_path/$script_name.smx"
 
-        "$sp_executable" $script "$outArg" $local_include_path $include_paths $sp_optimize $sp_verbose
+        "$sp_executable" $script "$outArg" $include_paths $sp_optimize $sp_verbose
     esac
 done
 
