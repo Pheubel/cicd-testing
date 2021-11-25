@@ -42,7 +42,7 @@ jobs:
       # bash $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
       - name: Compile Plugins
         run: |
-          addons/sourcemod/scripting/spcomp 'scripting/vshPackageManager.sp' -i='scripting/include' -i='addons/sourcemod/scripting/include' -i='scripting/' -O2 -v2 -o='build/vshPackageManager.smx'
+          bash $GITHUB_WORKSPACE/build.sh addons/sourcemod/scripting/spcomp 'scripting/vshPackageManager.sp' -i='scripting/include' -i='addons/sourcemod/scripting/include'
 
       - name: Pack Plugins
         run: zip vshPackageManager.zip $GITHUB_WORKSPACE/build/vshPackageManager.smx
