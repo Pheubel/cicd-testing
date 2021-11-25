@@ -46,12 +46,10 @@ jobs:
           echo Plugin version ${{ steps.setup_sp.outputs.plugin-version }}
       
       - name: Pack Plugins
-        run: |
-          zip vshPackageManager.zip $GITHUB_WORKSPACE/build/vshPackageManager.smx
-          tar cvf vshPackageManager.tar -C $GITHUB_WORKSPACE/build/vshPackageManager.smx
+        run: zip vshPackageManager.zip $GITHUB_WORKSPACE/build/vshPackageManager.smx
           
       - name: 'Upload Compilation Artifact'
         uses: actions/upload-artifact@v2
         with:
           name: VSH2 Package Manager (SM ${{ matrix.sm_version }})
-          path: vsh2_plugins.tar
+          path: vshPackageManager.zip
