@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         # Set up Sourcemod versions to compile against
-        sm_version: ['1.10', '1.11']
+        sm_version: [ '1.11']
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
