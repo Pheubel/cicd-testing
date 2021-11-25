@@ -8,22 +8,29 @@ param(
         [Parameter(
                     Mandatory=$true,
                     Position=1,
-                    HelpMessage='Set include path variable')]
-        [string] $spIncludePath
+                    ValueFromRemainingArguments,
+                    HelpMessage='Set source and include arguments passed to the compiler')]
+        [string[]] $spArgs
 )
 
 # location gets pushed on a stack since -Dpath does not work on windows.
 Push-Location $PSScriptRoot
 
 $executable = $spCompPath
-$plugin = 'src/vshPackageManager.sp'
-$outPath = Join-Path -Path $PSScriptRoot -ChildPath '/build/vshPackageManager.smx'
-$outPath = '-o=' + $outPath
-$includePath = '-i=' + $spIncludePath
+$outPath = Join-Path -Path $PSScriptRoot -ChildPath '/build/'
+$includePaths = $spArgs.Where{$_ -like '-i=*'}
+$scripts = $spArgs.Where{$_ -notlike '-i=*'}
 $localIncludePath = '-i=''include'''
 $optimization = '-O2'
 $verbosity = '-v2'
 
-& $executable $plugin $outPath $includePath $localIncludePath $optimization $verbosity
+foreach ($script in $scripts)
+{
+        $outArg = [System.IO.Path]::GetFileNameWithoutExtension($script) + ".smx"
+        $outArg = Join-Path -Path $outPath -ChildPath $outArg
+        $outArg = '-o=' + $outArg
+
+        & $executable $script $outArg $localIncludePath $includePaths $optimization $verbosity
+}
 
 Pop-Location
