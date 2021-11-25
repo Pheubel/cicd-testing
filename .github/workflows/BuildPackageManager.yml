@@ -8,11 +8,13 @@ on:
     branches: 
       - master
     paths:
+      - '*'
       - '!packages/*'
   pull_request:
     branches:
       - master
     paths:
+      - '*'
       - '!packages/*'
       
 jobs:
@@ -36,4 +38,4 @@ jobs:
       # $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
       - name: Compile Plugins
         run: |
-          spcomp $GITHUB_WORKSPACE/scripting/vshPackageManager.sp -i='scripting/include' -O2 -v2 -o=pack.smx
+          spcomp $GITHUB_WORKSPACE/scripting/vshPackageManager.sp -i='scripting/include' -O2 -v2 -o=$GITHUB_WORKSPACE/build/vshPackageManager.smx
