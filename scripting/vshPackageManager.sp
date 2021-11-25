@@ -1,7 +1,5 @@
 #include "vshPackageManager.inc"
 
-#include "<sourcemod>"
-
 #pragma semicolon            1
 #pragma newdecls             required
 
