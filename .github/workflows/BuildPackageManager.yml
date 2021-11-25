@@ -1,0 +1,37 @@
+name: Build Package Manager
+
+# Controls when the action will run. 
+on:
+  workflow_dispatch:
+  # Triggers the workflow on push or pull request events but only for the develop branch
+  push:
+    branches: 
+      - develop
+    paths:
+      - !packages/*
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - !packages/*
+      
+jobs:
+  build:
+    name: Compile SourcePawn ${{matrix.sm_version}}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Set up Sourcemod versions to compile against
+        sm_version: ['1.10', '1.11']
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      # Sets up the SourcePawn compiler
+      - name: Setup SourcePawn Compiler ${{ matrix.sm_version }}
+        uses: rumblefrog/setup-sp@master
+        with:
+          version: ${{ matrix.sm_version }}
+          
+      - name: Compile Plugins
+        run: $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
