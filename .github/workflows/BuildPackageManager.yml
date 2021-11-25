@@ -38,5 +38,5 @@ jobs:
       # spcomp $GITHUB_WORKSPACE/scripting/vshPackageManager.sp -i='scripting/include' -O2 -v2 -o=$GITHUB_WORKSPACE/build/vshPackageManager.smx
       # $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
       - name: Compile Plugins
-        run: $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
+        run: bash $GITHUB_WORKSPACE/build.sh spcomp 'scripting/vshPackageManager.sp' -i='scripting/include'
           
